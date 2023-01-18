@@ -1,5 +1,6 @@
 
 import React,{useState} from "react";
+import Button from "@mui/material/Button";
 
 const AuthContext = React.createContext(null);
 const useAuth = () => {
@@ -66,7 +67,13 @@ const MainApp = ()=>{
 
 
     //const [token, setToken] = useState(null);
-
+    const logout = (/*username: string, password: string*/) => {
+        localStorage.setItem('Authentication', '');
+        refreshPage()
+    }
+    const refreshPage = () =>{
+        window.location.reload();
+    };
     return (
        /* <AuthContext.Provider value={token}>
             <h1>React Router</h1>
@@ -77,7 +84,11 @@ const MainApp = ()=>{
                 ...
             </Routes>
         </AuthContext.Provider>*/
-        <div>Hello App Login</div>
+        <div>
+            Hello App Login
+            <Button className="signin-button" variant="contained" onClick={() => logout()}>Sign In</Button>
+        </div>
+
     );
 }
 

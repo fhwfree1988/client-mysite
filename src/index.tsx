@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MainApp from "./Modules/MainApp/MainApp";
 import Authentication from "./Modules/Security/AuthProvider";
+import Login from "./Modules/Components/Login/Login";
+//import 'antd/dist/reset.css'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,9 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
      <Authentication>
-         {/*<App />*/}
          <MainApp></MainApp>
      </Authentication>
+      {/*<Login/>*/}
   </React.StrictMode>
 );
 
