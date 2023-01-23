@@ -27,26 +27,12 @@ const Login = (props: any) => {
 
     const [loginState, setLoginState] = useState(defaultUser);
 
-    const login = (/*username: string, password: string*/) => {
-        /*const loginStateNew = {
-            username: username,
-            password: password
-        }
-        setLoginState(loginStateNew);*/
+    const login = () => {
         const UserCredentials = {
             username: loginState.username,
             password: loginState.password
         };
-        //debugger;
-        /*axios.post('http://localhost:8080/api/auth/signin', { UserCredentials })
-            .then((res: { data: any; }) => {
-                console.log(res);
-                console.log(res.data);
-            })*/
-        axios.post('http://localhost:8080/api/auth/signin', /*{
-            username: loginState.username,
-            password: loginState.password
-        }*/UserCredentials)
+        axios.post('http://localhost:8080/api/auth/signin', UserCredentials)
             .then((response) => {
                 console.log("response ---> " + response.data);
                 localStorage.setItem('Authentication', JSON.stringify(response.data));
@@ -57,12 +43,6 @@ const Login = (props: any) => {
         return true;
     }
 
-   /* const onChangeUsername = (username: string) => {
-
-    }
-    const onChangePassword = (password: string) => {npm i react-axios
-
-    }*/
     const refreshPage = () =>{
         window.location.reload();
     };
@@ -83,144 +63,8 @@ const Login = (props: any) => {
     };
 
     const isLoggedIn = () => {
-        /*if (window.loggedUsername==='guest') {
-            return false;
-        } else {
-            return true;
-        }*/
         return false;
     }
-
-    /*const handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                var details = {
-                    sysparm_type: "login",
-                    "ni.nolog.user_password": true,
-                    remember_me: values.remember,
-                    user_name: values.userName,
-                    user_password: values.password,
-                    get_redirect_url: true,
-                    sysparm_goto_url: "navpage.do"
-                };
-
-                var formBody:any[] = [];
-                for (var property in details) {
-                    var encodedKey = encodeURIComponent(property);
-                    var encodedValue = encodeURIComponent(details[property]);
-                    formBody.push(encodedKey + "=" + encodedValue);
-                }
-                formBody = formBody.join("&");
-                axios({
-                    method: "post",
-                    url:
-                        "angular.do?sysparm_type=view_form.login",
-                    data: formBody,
-                    config: {
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" }
-                    }
-                })
-                    .then(function(response) {
-                        if (response.data.status==='error') {
-                            message.error(response.data.message)
-                        } else if (response.data.status==='success'){
-                            message.success(response.data.message)
-                            setTimeout(()=>{window.location = window.mainAppPage;},500);
-                        } else {
-                            message.warning('Unknown response status'+response.data.message)
-                        }
-                    })
-                    .catch(function(response) {
-                        message.error('Network error. Cannot log in.')
-                    });
-            }
-        });
-    };*/
-
-    //const { getFieldDecorator } = props.form;
-    /*if (isLoggedIn()) {
-        window.location = window.mainAppPage;
-    }*/
-   /* return (
-        <div>
-            <div className={isLoggedIn() ? ' ' : ' hidden'}>
-                Successfully logged in...
-            </div>
-            <div className={"lContainer"+(isLoggedIn() ? ' hidden' : ' ')}>
-                <div className="lItem">
-                    <div className="loginImage">
-                        <img src={loginImg} width="300" style={{position: 'relative'}} alt="login"/>
-                    </div>
-                    <div className="loginForm">
-                        <h2>Login</h2>
-                        <Form onSubmitCapture={() => login()} className="login-form">
-                            <FormItem>
-                                {getFieldDecorator("userName", {
-                                    rules: [{ required: true, message: "Please enter your username" }]
-                                })(
-                                    <Input
-                                        prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-                                        placeholder="Username"
-                                    />
-                                )}
-                            </FormItem>
-                            <FormItem>
-                                {getFieldDecorator("password", {
-                                    rules: [{ required: true, message: "Please enter your Password" }]
-                                })(
-                                    <Input
-                                        prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-                                        type="password"
-                                        placeholder="Password"
-                                    />
-                                )}
-                            </FormItem>
-                            <FormItem>
-                                {getFieldDecorator("remember", {
-                                    valuePropName: "checked",
-                                    initialValue: true
-                                })(<Checkbox>Remember me</Checkbox>)}
-                                <Button
-                                    type="primary"
-                                    htmlType="submit"
-                                    className="login-form-button"
-                                >
-                                    Log in
-                                </Button>
-                            </FormItem>
-                        </Form>
-                    </div>
-                </div>
-                <div className="footer">
-                    <a href="" target="_blank" rel="noopener noreferrer" className="footerLink">Powered by React</a>
-                </div>
-            </div>
-        </div>
-    );*/
-
-    /*return (
-        <div>
-            <div className="loginPanel">
-                <div className="usernamePanel">
-                    <div className="usernameLabel">Username</div>
-                    <input className="usernameText" type={"text"} onChange={(e) => handleInputChangeUsername(e)}></input>
-
-                </div>
-                <div className="passwordPanel">
-                    <div className="passwordLabel">Password</div>
-                    <input className="passwordText" type={"text"} onChange={(e) => handleInputChangePassword(e)}></input>
-                </div>
-                <div className="messagePanel">
-                    <div className="message"></div>
-                </div>
-                <div className="buttonPanel">
-                    <button onClick={() => login()}></button>
-                </div>
-            </div>
-        </div>
-    );*/
-
     return(
         <div className="login">
             <div className="login-panel">
@@ -247,14 +91,7 @@ const Login = (props: any) => {
 
             </div>
         </div>
-        /*<div>
-            <TextField variant="standard" label="Username" />
-            <TextField variant="outlined" label="Email" type="email" />
-            <TextField variant="filled" label="Password" type="password" />
-            <Button variant="contained">Hello World</Button>
-        </div>*/
     );
 }
 
-//const NormalLoginForm = Form.create()(Login);
 export default Login;

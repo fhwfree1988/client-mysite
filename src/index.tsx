@@ -16,7 +16,6 @@ root.render(
      <Authentication>
          <MainApp></MainApp>
      </Authentication>
-      {/*<Login/>*/}
   </React.StrictMode>
 );
 

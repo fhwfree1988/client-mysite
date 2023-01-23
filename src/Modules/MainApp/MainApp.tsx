@@ -1,6 +1,9 @@
 
-import React,{useState} from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
+import axios from "axios";
+import UserRequest from "./UserRequest";
+import AuthenticationType from "../Security/AuthenticationType";
 
 const AuthContext = React.createContext(null);
 const useAuth = () => {
@@ -67,13 +70,41 @@ const MainApp = ()=>{
 
 
     //const [token, setToken] = useState(null);
-    const logout = (/*username: string, password: string*/) => {
+    const [content, setContent] = useState("");
+
+    const logout = () => {
         localStorage.setItem('Authentication', '');
         refreshPage()
     }
     const refreshPage = () =>{
         window.location.reload();
     };
+    const getInfo = () => {
+        const userRequest : UserRequest = {
+            id: -1,
+            username: "",
+            email: "",
+            roles: [
+                "ROLE_GUEST"
+            ],
+            accessToken: "",
+            tokenType: ""
+        }
+        axios.get('http://localhost:8080/api/test/all'/*, userRequest*/)
+            .then((response) => {
+                console.log("response ---> " + response.data);
+                setContent(response.data);
+            }, (error) => {
+                console.log(error);
+            });
+        return true;
+    }
+
+
+    useEffect(()=>{
+        console.log("useEffect ---> content is changed ");
+    },[content])
+
     return (
        /* <AuthContext.Provider value={token}>
             <h1>React Router</h1>
@@ -85,7 +116,11 @@ const MainApp = ()=>{
             </Routes>
         </AuthContext.Provider>*/
         <div>
-            Hello App Login
+            <div>
+                Hello App Login
+                {content}
+            </div>
+            <Button className="signin-button" variant="contained" onClick={() => getInfo()}>Get Info</Button>
             <Button className="signin-button" variant="contained" onClick={() => logout()}>Sign In</Button>
         </div>
 
