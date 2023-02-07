@@ -9,5 +9,4 @@ interface  AuthenticationType{
 
 }
 
-
 export default AuthenticationType;
