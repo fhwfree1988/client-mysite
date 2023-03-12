@@ -20,6 +20,7 @@ const Authentication = (props: any) =>{
     const [Authenticated,setAuthenticated] = useState(auth);//useSecurity();
 
     useEffect(()=>{
+        debugger;
         console.log("Authenticated toString---> " + Authenticated.accessToken);
         if(localStorage.getItem("Authentication") != null && localStorage.getItem("Authentication")!.trim() != ''){
             auth = JSON.parse(localStorage.getItem("Authentication")! || "")

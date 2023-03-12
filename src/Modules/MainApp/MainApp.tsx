@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import UserRequest from "./UserRequest";
 import AuthenticationType from "../Security/AuthenticationType";
+import Menu from "../Components/Menu/Menu";
 
 const AuthContext = React.createContext(null);
 const useAuth = () => {
@@ -71,6 +72,7 @@ const MainApp = ()=>{
 
     //const [token, setToken] = useState(null);
     const [content, setContent] = useState("");
+    const [page, setPage] = useState("/Home");
 
     const logout = () => {
         localStorage.setItem('Authentication', '');
@@ -116,12 +118,14 @@ const MainApp = ()=>{
             </Routes>
         </AuthContext.Provider>*/
         <div>
+            <Menu state={setPage}/>
             <div>
+                {page}
                 Hello App Login
                 {content}
             </div>
             <Button className="signin-button" variant="contained" onClick={() => getInfo()}>Get Info</Button>
-            <Button className="signin-button" variant="contained" onClick={() => logout()}>Sign In</Button>
+            <Button className="signin-button" variant="contained" onClick={() => logout()}>Sign Out</Button>
         </div>
 
     );
