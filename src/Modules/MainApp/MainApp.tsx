@@ -4,8 +4,11 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import UserRequest from "./UserRequest";
 import AuthenticationType from "../Security/AuthenticationType";
-import Menu from "../Components/Menu/Menu";
-
+import Pages from "../Components/Pages/Pages";
+import {string} from "prop-types";
+import About from "../Pages/About/About";
+import "./MainApp.css"
+import {createBrowserRouter,RouterProvider,Outlet, Link} from "react-router-dom";
 const AuthContext = React.createContext(null);
 const useAuth = () => {
     return React.useContext(AuthContext);
@@ -66,6 +69,20 @@ const Home = () => {
         </>
     );
 };*/
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Pages/>,
+        /*loader: rootLoader,*/
+        children: [
+            {
+                path: "/about",
+                element: <About />,
+                /* loader: eventLoader,*/
+            },
+        ],
+    },
+]);
 
 const MainApp = ()=>{
 
@@ -107,6 +124,11 @@ const MainApp = ()=>{
         console.log("useEffect ---> content is changed ");
     },[content])
 
+    const returnPage = (page:String) =>{
+        if(page === "/About")
+            return (<About></About>);
+        return "";
+    };
     return (
        /* <AuthContext.Provider value={token}>
             <h1>React Router</h1>
@@ -117,11 +139,11 @@ const MainApp = ()=>{
                 ...
             </Routes>
         </AuthContext.Provider>*/
-        <div>
-            <Menu state={setPage}/>
-            <div>
-                {page}
-                Hello App Login
+        <div className="main-app">
+            {/*<Pages state={setPage}/>*/}
+            <div className="contet-pages">
+                {/*{returnPage(page)}*/}
+                <RouterProvider router={router} />
                 {content}
             </div>
             <Button className="signin-button" variant="contained" onClick={() => getInfo()}>Get Info</Button>

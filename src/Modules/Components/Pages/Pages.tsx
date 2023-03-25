@@ -1,9 +1,10 @@
 import React from "react";
-import './Menu.css';
+import './Pages.css';
+import {Link} from "react-router-dom";
 
-const Menu = (props:any)=>{
+const Pages = (/*props:any*/)=>{
 
-    function Home() {
+    /*function Home() {
         props.state("/Home");
     }
     function About() {
@@ -11,13 +12,18 @@ const Menu = (props:any)=>{
     }
     function Profile() {
         props.state("/Profile");
-    }
+    }*/
     return(
         <div>
-            <div className='menu-container'>
+            {/*<div className='menu-container'>
                 <div className='menu-item' onClick={()=>Home()}> A </div>
                 <div className='menu-item' onClick={()=>About()}> B </div>
                 <div className='menu-item' onClick={()=>Profile()}> C </div>
+            </div>*/}
+            <div>
+                <Link to='/'>Home</Link>
+                <Link to='/About'>About</Link>
+                <Link to='/Profile'>Bar</Link>
             </div>
         </div>
     );
@@ -26,4 +32,4 @@ const Menu = (props:any)=>{
 
 }
 
-export default Menu;
+export default Pages;
