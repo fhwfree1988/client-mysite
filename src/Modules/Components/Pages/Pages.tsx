@@ -21,9 +21,9 @@ const Pages = (/*props:any*/)=>{
                 <div className='menu-item' onClick={()=>Profile()}> C </div>
             </div>*/}
             <div>
-                <Link to='/'>Home</Link>
-                <Link to='/About'>About</Link>
-                <Link to='/Profile'>Bar</Link>
+                <Link to='/'> Home </Link>
+                <Link to='/about'> About </Link>
+                <Link to='/profile'> Profile </Link>
             </div>
         </div>
     );
