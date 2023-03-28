@@ -1,4 +1,4 @@
-interface  UserRequest{
+interface UserRequestI {
     id: number,
     username: string,
     email: string,
@@ -7,4 +7,4 @@ interface  UserRequest{
     tokenType: string
 }
 
-export default UserRequest;
+export default UserRequestI;

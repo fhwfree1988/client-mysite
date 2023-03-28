@@ -1,32 +1,45 @@
-
 import React, {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import UserRequest from "./UserRequest";
-import AuthenticationType from "../Security/AuthenticationType";
+import UserRequestI from "./UserRequestI";
 import Pages from "../Components/Pages/Pages";
-import {string} from "prop-types";
 import About from "../Pages/About/About";
 import "./MainApp.css"
-import {createBrowserRouter,RouterProvider,Outlet, Link} from "react-router-dom";
+import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
+import MenuI, {MenuPosition} from "../Components/Pages/MenuI";
+
 const AuthContext = React.createContext(null);
 const useAuth = () => {
     return React.useContext(AuthContext);
 };
 
+const myItems:MenuI[]=
+    [
+        {keyID:1,title:'',picUrl:'home',href:'/'},
+        {keyID:2,title:'Profile',picUrl:'settings',href:'/profile'},
+        {keyID:3,title:'About',picUrl:'apps',href:'/about'},
+    ]
+
+let menuPosition:MenuPosition = MenuPosition.Side;
+
 const HeaderLayout = () => (
     <>
-        <header>
-            <Pages />
+        <header className={menuPosition == MenuPosition.Top ? "header-menu-top":"header-menu-side"} >
+            <Pages menuItems={myItems}  menuPosition={menuPosition}  />
         </header>
-        <Outlet />
+        <div className={menuPosition == MenuPosition.Top ? "content-menu-top":"content-menu-side"}>
+            <Outlet />
+        </div>
+
     </>
 );
 const router = createBrowserRouter([
     {
         /*path: "/",*/
         element: <HeaderLayout/>,
-        /*loader: rootLoader,*/
+        /*loader: async () => {
+            return fakeDb.from("teams").select("*");
+        },*/
         children: [
             {
                 path: "/",
@@ -35,7 +48,9 @@ const router = createBrowserRouter([
             {
                 path: "/about",
                 element: <About/>,
-                /* loader: eventLoader,*/
+               /* loader: async ({ params }) => {
+                    return fetch(`/api/teams/${params.teamId}.json`);
+                },*/
             },
             {
                 path: '/profile',
@@ -62,7 +77,7 @@ const MainApp = ()=>{
         window.location.reload();
     };
     const getInfo = () => {
-        const userRequest : UserRequest = {
+        const userRequest : UserRequestI = {
             id: -1,
             username: "",
             email: "",

@@ -1,8 +1,10 @@
 import React from "react";
 import './Pages.css';
-import {Link} from "react-router-dom";
+import Menu from "./Menu"
+import MenuI, {MenuPosition} from "./MenuI";
 
-const Pages = (/*props:any*/)=>{
+
+const Pages = (props: { menuPosition: MenuPosition; menuItems: MenuI[] })=>{
 
     /*function Home() {
         props.state("/Home");
@@ -13,18 +15,24 @@ const Pages = (/*props:any*/)=>{
     function Profile() {
         props.state("/Profile");
     }*/
+    function onClick(){
+        alert("click me")
+    }
+    const toggleMenu :MenuI = {keyID:0,title:'',picUrl:'home',href:''};
     return(
-        <div>
+        <div className={props.menuPosition == MenuPosition.Top ? "menu-side-container":"menu-Top-container"}>
             {/*<div className='menu-container'>
                 <div className='menu-item' onClick={()=>Home()}> A </div>
                 <div className='menu-item' onClick={()=>About()}> B </div>
                 <div className='menu-item' onClick={()=>Profile()}> C </div>
             </div>*/}
-            <div>
-                <Link to='/'> Home </Link>
-                <Link to='/about'> About </Link>
-                <Link to='/profile'> Profile </Link>
-            </div>
+            <Menu menuData={} menuPosition= {props.menuPosition} onClick={()=> {onClick()}} />
+            {
+
+                props.menuItems.map(item=>{
+                    return <Menu menuData={item} menuPosition= {props.menuPosition}  />
+                })
+            }
         </div>
     );
 

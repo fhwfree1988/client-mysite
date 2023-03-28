@@ -31,12 +31,14 @@ const Authentication = (props: any) =>{
 
 
 
-    let ret = props.children;
-    if(!Authenticated.login){
+    let ret = null;
+    if(!Authenticated.login && Authenticated.id > 0){
+        debugger;
         ret = <Login/>;
         console.log("-- Authenticate Failed -- ");
-    }else {
+    }else if(Authenticated.login && Authenticated.id > 0){
         console.log("-- Authenticate Done -- ");
+        ret = props.children;
     }
 
     return <div style = {{height:"100vh"}}>{ret}</div>;
