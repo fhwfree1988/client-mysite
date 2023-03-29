@@ -18,7 +18,7 @@ const Pages = (props: { menuPosition: MenuPosition; menuItems: MenuI[] })=>{
     function onClick(){
         alert("click me")
     }
-    const toggleMenu :MenuI = {keyID:0,title:'',picUrl:'home',href:''};
+    const toggleMenu :MenuI = {keyID:0,title:'',picUrl:'grade',href:''};
     return(
         <div className={props.menuPosition == MenuPosition.Top ? "menu-side-container":"menu-Top-container"}>
             {/*<div className='menu-container'>

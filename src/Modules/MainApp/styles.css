@@ -28,7 +28,6 @@ button {
   padding: 1rem;
   box-sizing: border-box;
   color: white;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -112,10 +111,17 @@ button {
   left: 0;
   top: 0;
 
-  display: flex;
+  /*display: flex;*/
   justify-content: center;
 }
 
 .menu-open {
   transform: translateX(0%);
+}
+
+.menu-header{
+  display: block;
+}
+.menu-content{
+  display: block;
 }

@@ -18,9 +18,13 @@ let menuPosition:MenuPosition = MenuPosition.Side;
 export const Menu = ({ isMenuOpen }: IMenuProps) => {
   return (
     <div className={`app-menu ${isMenuOpen ? "menu-open" : ""}`}>
-        <h2>Example App Menu</h2>
-        <br/>
-        <Pages menuItems={myItems}  menuPosition={menuPosition}  />
+        <div className="menu-header">
+            <h2>My App Menu</h2>
+        </div>
+        <div className="menu-content">
+            <Pages menuItems={myItems}  menuPosition={menuPosition}  />
+        </div>
+
     </div>
   );
 };

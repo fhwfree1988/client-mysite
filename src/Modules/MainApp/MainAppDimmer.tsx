@@ -9,12 +9,12 @@ import About from "../Pages/About/About";
 
 
 export const MyContent = () => {
-    const [isModalOpen, setModal] = useState(false);
+    /*const [isModalOpen, setModal] = useState(false);*/
     const [isMenuOpen, setMenu] = useState(false);
 
-    const handleClick = () => {
+    /*const handleClick = () => {
         setModal((prevState) => !prevState);
-    };
+    };*/
 
     const handleMenu = () => {
         setMenu((prevState) => !prevState);
@@ -25,23 +25,22 @@ export const MyContent = () => {
             <div className="app">
                 <div className="header">
                     <GiHamburgerMenu className="menu-btn" onClick={handleMenu}/>
-                    <h1>Example App</h1>
+                    <h1>My App</h1>
                     <div className="nav"></div>
                 </div>
                 <div className="body">
-                    {/*<button onClick={handleClick}>Open Modal</button>*/}
-                    <Outlet/>
+                   <Outlet />
                 </div>
             </div>
-            {isModalOpen && <Modal closeModal={setModal}/>}
+            {/*{isModalOpen && <Modal closeModal={setModal}/>}*/}
             <Menu isMenuOpen={isMenuOpen}/>
 
-            <ReactDimmer
+           {/* <ReactDimmer
                 isOpen={isModalOpen}
                 exitDimmer={setModal}
                 zIndex={100}
                 blur={1.5}
-            />
+            />*/}
             <ReactDimmer
                 isOpen={isMenuOpen}
                 exitDimmer={setMenu}
@@ -85,7 +84,6 @@ const MainAppDimmer = ()=>{
 
     return (
         <RouterProvider router={router} />
-
     );
 
 }

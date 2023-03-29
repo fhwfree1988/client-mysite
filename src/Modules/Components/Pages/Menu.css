@@ -18,7 +18,8 @@
 
 .menu-upper-container-side{
     display: block;
-    background-color: lightcyan;
+    background-color: #c3c3c3;
+    color:snow;
     min-width: 100px;
     width: auto;
     height: 50px;
@@ -39,10 +40,12 @@
 }
 .menu-icon{
     display: inline-block;
-    margin: 0px;
+    margin: 5px;
 }
 .menu-title{
-    margin: 0px;
+    margin: 5px;
     display: inline-block;
     font-size: medium;
+    top: -5px;
+    position: relative;
 }
