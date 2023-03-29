@@ -23,8 +23,6 @@
     width: auto;
     height: 50px;
     cursor: pointer !important;
-    /*border-bottom: 1px solid black;
-    border-top: 1px solid black;*/
 }
 .menu-upper-container-side:last-child{
     border-bottom: 1px solid black;

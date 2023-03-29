@@ -26,11 +26,10 @@ const Pages = (props: { menuPosition: MenuPosition; menuItems: MenuI[] })=>{
                 <div className='menu-item' onClick={()=>About()}> B </div>
                 <div className='menu-item' onClick={()=>Profile()}> C </div>
             </div>*/}
-            <Menu menuData={} menuPosition= {props.menuPosition} onClick={()=> {onClick()}} />
+            <Menu menuData={{data:toggleMenu,menuPosition:props.menuPosition}} onClick={()=> {onClick()}} />
             {
-
                 props.menuItems.map(item=>{
-                    return <Menu menuData={item} menuPosition= {props.menuPosition}  />
+                    return <Menu menuData={{data:item,menuPosition:props.menuPosition}} onClick={null} />
                 })
             }
         </div>

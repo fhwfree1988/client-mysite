@@ -8,6 +8,7 @@ import Authentication from "./Modules/Security/AuthProvider";
 import Login from "./Modules/Components/Login/Login";
 import {createBrowserRouter, Link} from "react-router-dom";
 import About from "./Modules/Pages/About/About";
+import MainAppDimmer from "./Modules/MainApp/MainAppDimmer";
 //import 'antd/dist/reset.css'
 
 const root = ReactDOM.createRoot(
@@ -18,7 +19,8 @@ root.render(
 
   <React.StrictMode>
      <Authentication>
-         <MainApp></MainApp>
+         {/*<MainApp></MainApp>*/}
+         <MainAppDimmer></MainAppDimmer>
      </Authentication>
   </React.StrictMode>
 );
