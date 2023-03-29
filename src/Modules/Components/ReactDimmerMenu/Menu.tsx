@@ -22,9 +22,8 @@ export const Menu = ({ isMenuOpen }: IMenuProps) => {
             <h2>My App Menu</h2>
         </div>
         <div className="menu-content">
-            <Pages menuItems={myItems}  menuPosition={menuPosition}  />
+            <Pages menuItems={myItems}  menuPosition={menuPosition}/>
         </div>
-
     </div>
   );
 };
