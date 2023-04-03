@@ -32,7 +32,7 @@ const Authentication = (props: any) =>{
 
 
     let ret = null;
-    if(!Authenticated.login && Authenticated.id > 0){
+    if(!Authenticated.login /*&& Authenticated.id > -2*/){
         debugger;
         ret = <Login/>;
         console.log("-- Authenticate Failed -- ");

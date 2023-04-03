@@ -6,6 +6,9 @@ import { Menu } from "../Components/ReactDimmerMenu/Menu";
 import { ReactDimmer } from "react-dimmer";
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import About from "../Pages/About/About";
+import Button from "@mui/material/Button";
+import UserRequestI from "./UserRequestI";
+import axios from "axios";
 
 
 export const MyContent = () => {
@@ -20,12 +23,44 @@ export const MyContent = () => {
         setMenu((prevState) => !prevState);
     };
 
+    const [content, setContent] = useState("");
+
+    const logout = () => {
+        localStorage.setItem('Authentication', '');
+        refreshPage()
+    }
+    const refreshPage = () =>{
+        window.location.reload();
+    };
+    const getInfo = () => {
+        const userRequest : UserRequestI = {
+            id: -1,
+            username: "",
+            email: "",
+            roles: [
+                "ROLE_GUEST"
+            ],
+            accessToken: "",
+            tokenType: ""
+        }
+        axios.get('http://localhost:8080/api/test/all'/*, userRequest*/)
+            .then((response) => {
+                console.log("response ---> " + response.data);
+                setContent(response.data);
+            }, (error) => {
+                console.log(error);
+            });
+        return true;
+    }
     return (
         <>
             <div className="app">
                 <div className="header">
                     <GiHamburgerMenu className="menu-btn" onClick={handleMenu}/>
+                    {content}
                     <h1>My App</h1>
+                    <Button className="signin-button" variant="contained" onClick={() => getInfo()}>Get Info</Button>
+                    <Button className="signin-button" variant="contained" onClick={() => logout()}>Sign Out</Button>
                     <div className="nav"></div>
                 </div>
                 <div className="body">
