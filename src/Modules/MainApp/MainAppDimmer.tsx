@@ -1,4 +1,6 @@
-import "./styles.css";
+import "./MainApp.css";
+import PageLogo from "./asset/Page-logo.png";
+
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Modal } from "../Components/ReactDimmerMenu/Modal";
@@ -58,11 +60,15 @@ export const MyContent = () => {
                 <div className="header">
                     <GiHamburgerMenu className="menu-btn" onClick={handleMenu}/>
                     {content}
-                    <h1>My App</h1>
-                    <Button className="signin-button" variant="contained" onClick={() => getInfo()}>Get Info</Button>
-                    <Button className="signin-button" variant="contained" onClick={() => logout()}>Sign Out</Button>
-                    <div className="nav"></div>
+
+                    <img src={PageLogo} className="logo"/>
+                    {/*<h1>My App</h1>*/}
+                    {/*<div className="nav"></div>*/}
+                    {/*<Button className="signin-button" variant="contained" onClick={() => getInfo()}>Get Info</Button>
+                    <Button className="signout-button" variant="contained" onClick={() => logout()}>Sign Out</Button>*/}
+                    <Button className="signout-button" variant="contained" onClick={() => logout()}>Sign Out</Button>
                 </div>
+
                 <div className="body">
                    <Outlet />
                 </div>

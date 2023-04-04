@@ -38,10 +38,12 @@
     position: relative;
     width: 100px;
 }
+
 .username-field{
     position: relative;
     width: 300px;
 }
+
 .password-field{
     position: relative;
     width: 300px;
@@ -53,6 +55,7 @@
     position: relative;
     cursor: pointer;
 }
+
 .login-image {
     margin-top: -50px;
     margin-bottom: 70px;
