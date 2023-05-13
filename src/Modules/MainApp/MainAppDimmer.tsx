@@ -93,8 +93,10 @@ export const MyContent = () => {
     )
 
 }
-const MainAppDimmer = ()=>{
-
+const MainAppDimmer = (AuthContext:any)=>{
+    const useAuth = () => {
+        return React.useContext(AuthContext);
+    };
     const router = createBrowserRouter([
         {
             /*path: "/",*/

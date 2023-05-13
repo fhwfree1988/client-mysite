@@ -8,10 +8,10 @@ import "./MainApp.css"
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import MenuI, {MenuPosition} from "../Components/Pages/MenuI";
 
-const AuthContext = React.createContext(null);
+/*const AuthContext = React.createContext(null);
 const useAuth = () => {
     return React.useContext(AuthContext);
-};
+};*/
 
 const myItems:MenuI[]=
     [
@@ -59,8 +59,6 @@ const router = createBrowserRouter([
         ],
     },
 ]);
-
-
 
 const MainApp = ()=>{
 

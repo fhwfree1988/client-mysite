@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Login from "../Components/Login/Login";
 import AuthenticationType from "./AuthenticationType";
 
-const Authentication = (props: any) =>{
+const Authentication = (props:any/*: {userAuth:AuthenticationType}*/) =>{
     debugger;
     let auth : AuthenticationType = {
         id: -1,
@@ -24,6 +24,7 @@ const Authentication = (props: any) =>{
         console.log("Authenticated toString---> " + Authenticated.accessToken);
         if(localStorage.getItem("Authentication") != null && localStorage.getItem("Authentication")!.trim() != ''){
             auth = JSON.parse(localStorage.getItem("Authentication")! || "")
+
             console.log("useEffect ---> " + auth.accessToken);
             setAuthenticated(auth);
         }

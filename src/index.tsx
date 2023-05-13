@@ -9,19 +9,35 @@ import Login from "./Modules/Components/Login/Login";
 import {createBrowserRouter, Link} from "react-router-dom";
 import About from "./Modules/Pages/About/About";
 import MainAppDimmer from "./Modules/MainApp/MainAppDimmer";
+import AuthenticationType from "./Modules/Security/AuthenticationType";
 //import 'antd/dist/reset.css'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+let userAuth : AuthenticationType = {
+    id: -1,
+    username: "",
+    email: "",
+    roles: [
+        "ROLE_GUEST"
+    ],
+    accessToken: "",
+    tokenType: "",
+    login :false
+}
+const AuthContext = React.createContext(userAuth);
+
 root.render(
 
   <React.StrictMode>
-     <Authentication>
+      <AuthContext.Provider value={userAuth}>
+     <Authentication userAuth={AuthContext}>
          {/*<MainApp></MainApp>*/}
-         <MainAppDimmer></MainAppDimmer>
+            <MainAppDimmer userAuth={AuthContext}></MainAppDimmer>
      </Authentication>
+      </AuthContext.Provider>
   </React.StrictMode>
 );
 
