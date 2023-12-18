@@ -11,6 +11,7 @@ import About from "../Pages/About/About";
 import Button from "@mui/material/Button";
 import UserRequestI from "./UserRequestI";
 import axios from "axios";
+import DragDropElement from "../Pages/DragDrop/DragDropElement";
 
 
 export const MyContent = () => {
@@ -119,6 +120,10 @@ const MainAppDimmer = (AuthContext:any)=>{
                 {
                     path: '/profile',
                     element: <div>profile</div>,
+                },
+                {
+                    path: '/drag-drop-element',
+                    element: <DragDropElement/>,
                 }
             ],
         },

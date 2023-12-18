@@ -7,6 +7,7 @@ import About from "../Pages/About/About";
 import "./MainApp.css"
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import MenuI, {MenuPosition} from "../Components/Pages/MenuI";
+import DragDropElement from "../Pages/DragDrop/DragDropElement";
 
 /*const AuthContext = React.createContext(null);
 const useAuth = () => {
@@ -17,7 +18,8 @@ const myItems:MenuI[]=
     [
         {keyID:1,title:'',picUrl:'home',href:'/'},
         {keyID:2,title:'Profile',picUrl:'settings',href:'/profile'},
-        {keyID:3,title:'About',picUrl:'apps',href:'/about'},
+        {keyID:3,title:'AboutM',picUrl:'about',href:'/about'},
+
     ]
 
 let menuPosition:MenuPosition = MenuPosition.Side;
@@ -55,6 +57,10 @@ const router = createBrowserRouter([
             {
                 path: '/profile',
                 element: <div>profile</div>,
+            },
+            {
+                path: '/drag-drop-element',
+                element: <DragDropElement/>,
             }
         ],
     },

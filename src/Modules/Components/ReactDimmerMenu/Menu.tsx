@@ -11,6 +11,7 @@ const myItems:MenuI[]=
         {keyID:1,title:'',picUrl:'home',href:'/'},
         {keyID:2,title:'Profile',picUrl:'settings',href:'/profile'},
         {keyID:3,title:'About',picUrl:'apps',href:'/about'},
+        {keyID:4,title:'DragDropElement',picUrl:'app',href:'/drag-drop-element'},
     ]
 
 let menuPosition:MenuPosition = MenuPosition.Side;
