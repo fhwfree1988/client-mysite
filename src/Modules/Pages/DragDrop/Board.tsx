@@ -35,7 +35,7 @@ interface BoardProps {
 export function Board(props: BoardProps) {
     const [collectedProps, drop] = useDrop(() => ({
         accept: ItemTypes.ITEM,
-        drop: () => props.onColumnItemsDrop(null,null,null),
+        //drop: () => props.onColumnItemsDrop(null,null,null),
         collect: monitor => ({
             isOver: !!monitor.isOver(),
         }),

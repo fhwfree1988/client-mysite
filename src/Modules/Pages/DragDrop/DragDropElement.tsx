@@ -66,7 +66,7 @@ const DragDropElement=()=>{
         }
     }*/
     function moveItem(item: Column,from:Board, to: Board) {
-        boards.columnItems.map(c => {
+       /* boards.columnItems.map(c => {
             c.items.map(i => {
                 if(c.id == to.id)
                     setBoards(if(!to.items.map(i => i.id).includes(newColumn.id))
@@ -75,7 +75,7 @@ const DragDropElement=()=>{
                         items: to.items.concat(newColumn)
                     }});
             })
-        });
+        });*/
             //setBoards({...boards,boards.columnItems.map(c =>addItem (item,  to))});
           //  setBoards({...boards,columnItems: addItem()});
         //}
