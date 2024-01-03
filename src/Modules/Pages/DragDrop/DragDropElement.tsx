@@ -86,7 +86,9 @@ const DragDropElement=()=>{
         boards.boardItems.map(brd => {
             if(brd.id == targetID){
                 if(!brd.items.map(i => i.id).includes(item.id)){
-                    setBoards({...brd,{}});
+                    setBoards(...brd,{
+                        items: brd.items.concat(item)
+                    });
                 }
             }
         });
