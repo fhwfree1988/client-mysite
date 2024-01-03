@@ -5,9 +5,10 @@ import {ItemTypes} from "./DragDropElement";
 
 
 interface ColumnProps {
+    id: number;
     name: string;
    // items: Array<{ name: string }>;
-    items: Array<Column>;
+   // items: Array<Column>;
     onItemsChange: (e:any) => void;
 }
 export interface Column {
@@ -19,6 +20,7 @@ export interface Column {
 export function Column(props: ColumnProps) {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.ITEM,
+        item:{props},
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
         })
@@ -27,16 +29,17 @@ export function Column(props: ColumnProps) {
         alert("dragabble elements are still clickable :)");
     }
     return (
-        <div className={s.wrapper} >
+        /*<div className={s.wrapper} >
             <div className={s.columnTitle}>{props.name}</div>
             <div className={s.columnContent}>
-                {props.items.map((item) =>
+                {props.items.map((item) =>*/
                     <div className={s.card} onClick={handleClick} ref={drag}>
-                        {item.name}
+                        {/*{item.name}*/}
+                        {props.name}
                     </div>
-                )}
+                /*)}
             </div>
-        </div>
+        </div>*/
     );
 }
 

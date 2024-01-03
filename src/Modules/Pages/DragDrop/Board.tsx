@@ -1,4 +1,4 @@
-import {DndProvider, useDrop} from 'react-dnd';
+import {DndProvider, DropTargetMonitor, useDrop,useDrag} from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import {Column} from "./Column";
 import s from './styles.module.css';
@@ -11,13 +11,12 @@ export interface Board {
     items: Column[];
     //onItemsDrop: (e:Board) => void;
 }
+
 interface BoardProps {
     board: {
-        columnItems: {
-            id: number;
-            name: string;
-            items: any[];
-        }[];
+        id: number;
+        name: string;
+        items: any[];
     };
     onColumnItemsChange: (
         key: string,
@@ -27,34 +26,42 @@ interface BoardProps {
     ) => void;
     onColumnItemsDrop: (
         item: Column,
-        from:Board,
-        to: Board
+        target:number,
+        //to: Board
     ) => void;
 }
 
 export function Board(props: BoardProps) {
     const [collectedProps, drop] = useDrop(() => ({
         accept: ItemTypes.ITEM,
-        //drop: () => props.onColumnItemsDrop(null,null,null),
+        drop: (dragItem: Column) => props.onColumnItemsDrop(dragItem,props.board.id),
+
         collect: monitor => ({
             isOver: !!monitor.isOver(),
         }),
     }));
-
-   /* const black = (x + y) % 2 === 1
-    const [{ isOver }, drop] = useDrop(() => ({
-        accept: ItemTypes.KNIGHT,
-        drop: () => moveKnight(1, 1),
+    /*const [{isDragging}, drag] = useDrag(() => ({
+        accept: ItemTypes.ITEM,
         collect: monitor => ({
-            isOver: !!monitor.isOver(),
+            isDragging: !!monitor.isDragging(),
         }),
-    }), [x, y])*/
+    }));*/
+
+    /* const black = (x + y) % 2 === 1
+     const [{ isOver }, drop] = useDrop(() => ({
+         accept: ItemTypes.KNIGHT,
+         drop: () => moveKnight(1, 1),
+         collect: monitor => ({
+             isOver: !!monitor.isOver(),
+         }),
+     }), [x, y])*/
 
     function handleDndColumnsSorted(e: CustomEvent) {
         props.onColumnItemsChange("columnItems", e.detail.items);
     }
 
     function handleDndCardsSorted(cid: number, e: CustomEvent) {
+        debugger;
         props.onColumnItemsChange(
             "columnItems",
             (column) => column.id === cid,
@@ -64,18 +71,26 @@ export function Board(props: BoardProps) {
     }
 
     return (
-            <div className={s.columnContent} ref={drop}>
-                {props.board.columnItems.map((column) =>
-                    <div className={s.column}>
-                        <Column
-                            key={column.id}
-                            name={column.name}
-                            items={column.items}
-                            onItemsChange={(e) => handleDndCardsSorted(column.id, e)}
-                        />
+        <div className={s.columnContent} ref={drop}>
+            {/*{props.board.items.map((column) =>*/}
+                <div className={s.column}>
+                    <div className={s.wrapper} >
+                        <div className={s.columnTitle}>{props.board.name}</div>
+                        <div className={s.columnContent}>
+                            {props.board.items.map((column) =>
+                                <Column
+                                    key={column.id}
+                                    id={column.id}
+                                    name={column.name}
+                                   // items={column.items}
+                                    onItemsChange={(e) => handleDndCardsSorted(column.id, e)}
+                                />
+                            )}
+                        </div>
                     </div>
-                )}
-            </div>
+                </div>
+           {/* )}*/}
+        </div>
     );
 }
 

@@ -5,11 +5,14 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {useState} from "react";
 import {Column} from "./Column";
+import {BoardContainer} from "./BoardContainer";
 
 interface Position {
     position: [number, number];
 }
-
+interface Boards {
+    boards:Board[];
+}
 function emitChange(itemPosition:Position) {
     //observer(itemPosition);
 }
@@ -23,8 +26,8 @@ export const ItemTypes = {
     ITEM: 'item'
 }
 const DragDropElement=()=>{
-    const [board, setBoard] = createStore({
-            columnItems: [
+    const [boardsData, setBoardsData] = createStore({
+        boardItems: [
                 {
                     id: 1,
                     name: "TODO",
@@ -57,7 +60,7 @@ const DragDropElement=()=>{
             ]
 
     });
-    const [boards,setBoards] =useState(board);
+    const [boards,setBoards] =useState(boardsData);
 
     /*function moveItem(item: Column,from:Board, to: Board) {
         if(!boards.columnItems.map(c => c.id).includes(to.id)) {
@@ -65,8 +68,31 @@ const DragDropElement=()=>{
             setBoards({...boards,columnItems: addItem()});
         }
     }*/
-    function moveItem(item: Column,from:Board, to: Board) {
-       /* boards.columnItems.map(c => {
+    function moveItem(item: Column,targetID:number/*from:Board, to: Board*/) {
+        debugger;
+        //let boards.columnItems
+        let items: any;
+        /*boardsData.boardItems.map(brd => {
+            if(brd.id == targetID){
+                if(!brd.items.map(i => i.id).includes(item.id)){
+                    brd.items.concat(item);
+                    items = brd.items;
+                }
+            }
+
+        });
+
+        setBoards(boardsData);*/
+        boards.boardItems.map(brd => {
+            if(brd.id == targetID){
+                if(!brd.items.map(i => i.id).includes(item.id)){
+                    setBoards({...brd,{}});
+                }
+            }
+        });
+
+
+        /*boards.boardItems.map(c => {
             c.items.map(i => {
                 if(c.id == to.id)
                     setBoards(if(!to.items.map(i => i.id).includes(newColumn.id))
@@ -92,6 +118,12 @@ const DragDropElement=()=>{
             ...tree,
             subCategories: tree.subCategories.map(c => remove(c, idToRemove))
         }*/
+    }
+    function columnItemsChange(key: string,
+    value: any[] | ((column: any) => boolean),
+        subKey?: string,
+        subValue?: any[]){
+
     }
     /*function add (bord:Board, newCategory,  to: BoardProps) {
         if(bord.id === to.board)
@@ -128,7 +160,8 @@ const DragDropElement=()=>{
             </h4>
             <hr />
             <DndProvider backend={HTML5Backend}>
-                <Board board={board} onColumnItemsChange={setBoard} onColumnItemsDrop={moveItem} />
+                {/*<BoardContainer board={boardsData} onColumnItemsChange={setBoards} onColumnItemsDrop={moveItem} />*/}
+                <BoardContainer boards={boardsData.boardItems} onColumnItemsChange={columnItemsChange} onColumnItemsDrop={moveItem} />
             </DndProvider>
         </main>
     );
