@@ -12,6 +12,7 @@ interface BoardContainerProps {
         id: number;
         name: string;
         items: any[];
+        //onItemsDelete: (item: Column) => void;
     }[];
     onColumnItemsChange: (
         key: string,
@@ -24,6 +25,8 @@ interface BoardContainerProps {
         target:number,
         //to: Board
     ) => void;
+    //onItemsDelete: (item: Column) => void;
+    //onItemsAdd: (item: Column) => void;
 }
 
 export function BoardContainer(props: BoardContainerProps) {
@@ -67,7 +70,7 @@ export function BoardContainer(props: BoardContainerProps) {
     return (
             <div className={s.columnContent} >
                 {props.boards.map((brd:Board) =>
-                    <Board  board={brd} onColumnItemsChange={props.onColumnItemsChange} onColumnItemsDrop={props.onColumnItemsDrop}/>
+                    <Board  board={brd} onColumnItemsChange={props.onColumnItemsChange} onColumnItemsDrop={props.onColumnItemsDrop}  />
                 )}
             </div>
     );

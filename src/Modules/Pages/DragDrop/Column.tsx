@@ -2,25 +2,31 @@ import {DndProvider, useDrag} from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import s from './styles.module.css';
 import {ItemTypes} from "./DragDropElement";
+import {Board} from "./Board";
 
 
 interface ColumnProps {
     id: number;
-    name: string;
+    columnName: string;
+    parentBoard: Board;
    // items: Array<{ name: string }>;
    // items: Array<Column>;
     onItemsChange: (e:any) => void;
 }
 export interface Column {
     id: number;
-    name: string;
-    onItemsClick: (e:any) => void;
+    columnName: string;
+    parentBoard: Board;
+    //onItemsClick: (e:any) => void;
 }
 
 export function Column(props: ColumnProps) {
+    let id = props.id;
+    let columnName = props.columnName;
+    let parentBoard = props.parentBoard;
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.ITEM,
-        item:{props},
+        item: { id,columnName,parentBoard },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
         })
@@ -28,6 +34,12 @@ export function Column(props: ColumnProps) {
     function handleClick() {
         alert("dragabble elements are still clickable :)");
     }
+    /*function Column(id: number,columnName: string):Column {
+        let column:Column = null;
+        column.columnName = columnName;
+        column.id = id;
+        return column;
+    }*/
     return (
         /*<div className={s.wrapper} >
             <div className={s.columnTitle}>{props.name}</div>
@@ -35,7 +47,7 @@ export function Column(props: ColumnProps) {
                 {props.items.map((item) =>*/
                     <div className={s.card} onClick={handleClick} ref={drag}>
                         {/*{item.name}*/}
-                        {props.name}
+                        {props.columnName}
                     </div>
                 /*)}
             </div>

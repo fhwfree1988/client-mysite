@@ -9,7 +9,7 @@ export interface Board {
     id: number;
     name: string;
     items: Column[];
-    //onItemsDrop: (e:Board) => void;
+    onItemsDelete: (item: Column) => void;
 }
 
 interface BoardProps {
@@ -17,6 +17,7 @@ interface BoardProps {
         id: number;
         name: string;
         items: any[];
+        onItemsDelete: (item: Column) => void;
     };
     onColumnItemsChange: (
         key: string,
@@ -29,13 +30,16 @@ interface BoardProps {
         target:number,
         //to: Board
     ) => void;
+    //onItemsDelete: (item: Column) => void;
+    //onItemsAdd: (item: Column) => void;
 }
 
 export function Board(props: BoardProps) {
+    const [boardItems,setBoardItems] =useState(props.board.items);
+
     const [collectedProps, drop] = useDrop(() => ({
         accept: ItemTypes.ITEM,
-        drop: (dragItem: Column) => props.onColumnItemsDrop(dragItem,props.board.id),
-
+        drop: (dragItem: Column) => addItem(dragItem,props.board.id),
         collect: monitor => ({
             isOver: !!monitor.isOver(),
         }),
@@ -59,7 +63,119 @@ export function Board(props: BoardProps) {
     function handleDndColumnsSorted(e: CustomEvent) {
         props.onColumnItemsChange("columnItems", e.detail.items);
     }
+    function deleteItem(item: Column) {
+        debugger;
+        let newList:Column[] = boardItems.find(X => X.id !== item.id)
+        setBoardItems(newList);
+    }
+    function addItem(dragItem: Column,targetID:number/*from:Board, to: Board*/) {
+        debugger;
+        //let boards.columnItems
+        //let items: any;
+        /*boardsData.boardItems.map(brd => {
+            if(brd.id == targetID){
+                if(!brd.items.map(i => i.id).includes(item.id)){
+                    brd.items.concat(item);
+                    items = brd.items;
+                }
+            }
 
+        });
+
+        setBoards(boardsData);*/
+        //let items:Column = boardItems;
+        let myDragItem = null;
+        /*for(var b = 0; b < boardsList.length; b++) {
+            //if(boardsList[b].id == targetID){
+            myDragItem = boardsList[b].items.find(X => X.id === dragItem.id);
+                //if(boardsList[b].items.map(i => i.id).includes(dragItemId)){
+                if(dragItem){
+                    const newList = boardsList[b].items.filter((X) => X.id !== dragItem.id);
+                    boardsList[b].items = newList;
+                    break;
+                }
+                //return i;
+            //}
+        }
+
+        if(dragItem) {
+            for (var b = 0; b < boardsList.length; b++) {
+                if (boardsList[b].id == targetID) {
+                    if (!boardsList[b].items.map(i => i.id).includes(dragItem.id)) {
+                        const newList = boardsList[b].items.concat(dragItem!);
+                        boardsList[b].items = newList;
+                        break;
+                    }
+                    //return i;
+                }
+            }
+        }*/
+
+
+        /* boards.map(brd => {
+             myDragItem = brd.items.find(X => X.id === dragItem.id);
+             if(myDragItem) {
+                 let newList:Column[] = brd.items.filter((X) => X.id !== dragItem.id);
+                     setBoards((brd) => (return {...brd ,items: newList}));
+
+             }
+
+         });*/
+        let newList:Column[] = boardItems;
+        dragItem.parentBoard.onItemsDelete(dragItem);
+        newList.push(dragItem);
+        setBoardItems(newList);
+        /*boards.map(brd => {
+            myDragItem = brd.items.find(X => X.id === dragItem.id);
+            if(brd.id == targetID){
+                if(!brd.items.map(i => i.id).includes(item.id)){
+                    setBoards({...brd,{
+                        items: items.items.concat(item)
+                    }});
+                }
+            }
+        });*/
+        /*boards.boardItems.map(brd => {
+            if(brd.id == targetID){
+                if(!brd.items.map(i => i.id).includes(item.id)){
+                    setBoards({...brd,{
+                        items: items.items.concat(item)
+                    }});
+                }
+            }
+        });*/
+        //setBoards(boardsList);
+        /*const updatedBoards = boards.map(brd => {
+            if (brd.id === targetID) {
+                if(!brd.items.map(i => i.id).includes(item.id)) {
+                    return {
+                        ...brd,
+                        items: [...brd.items, item],
+                    };
+                }else {
+                    return brd;
+                }
+            } else {
+                return brd;
+            }
+        });
+        setBoards(updatedBoards);*/
+
+
+        /*boards.boardItems.map(c => {
+            c.items.map(i => {
+                if(c.id == to.id)
+                    setBoards(if(!to.items.map(i => i.id).includes(newColumn.id))
+                    {..c ,{
+                        ...to,
+                        items: to.items.concat(newColumn)
+                    }});
+            })
+        });*/
+        //setBoards({...boards,boards.columnItems.map(c =>addItem (item,  to))});
+        //  setBoards({...boards,columnItems: addItem()});
+        //}
+    }
     function handleDndCardsSorted(cid: number, e: CustomEvent) {
         debugger;
         props.onColumnItemsChange(
@@ -77,11 +193,12 @@ export function Board(props: BoardProps) {
                     <div className={s.wrapper} >
                         <div className={s.columnTitle}>{props.board.name}</div>
                         <div className={s.columnContent}>
-                            {props.board.items.map((column) =>
+                            {boardItems.map((column) =>
                                 <Column
                                     key={column.id}
                                     id={column.id}
-                                    name={column.name}
+                                    columnName={column.columnName}
+                                    parentBoard={props.board}
                                    // items={column.items}
                                     onItemsChange={(e) => handleDndCardsSorted(column.id, e)}
                                 />

@@ -6,6 +6,7 @@ import {DndProvider} from "react-dnd";
 import {useState} from "react";
 import {Column} from "./Column";
 import {BoardContainer} from "./BoardContainer";
+import MenuI from "../../Components/Pages/MenuI";
 
 interface Position {
     position: [number, number];
@@ -25,24 +26,61 @@ function emitChange(itemPosition:Position) {
 export const ItemTypes = {
     ITEM: 'item'
 }
+interface  BordsContainer{
+    id: number;
+    name: string;
+    items: Column[];
+}
+const boardsData/*:BordsContainer[]*/=
+    [
+        {
+            id: 1,
+            name: "TODO",
+            items: [
+                { id: 41, columnName: "item41" ,parentBoard:{id:1}},
+                { id: 42, columnName: "item42" ,parentBoard:{id:1}},
+                { id: 43, columnName: "item43" ,parentBoard:{id:1}},
+                { id: 44, columnName: "item44" ,parentBoard:{id:1}},
+                { id: 45, columnName: "item45" ,parentBoard:{id:1}},
+                { id: 46, columnName: "item46" ,parentBoard:{id:1}},
+                { id: 47, columnName: "item47" ,parentBoard:{id:1}},
+                { id: 48, columnName: "item48" ,parentBoard:{id:1}},
+                { id: 49, columnName: "item49" ,parentBoard:{id:1}},
+                { id: 50, columnName: "item50" ,parentBoard:{id:1}},
+                { id: 51, columnName: "item51" ,parentBoard:{id:1}}
+            ]//,
+            //onDeleteItem: {}
+
+        },
+        {
+            id: 2,
+            name: "DOING",
+            items: []
+        },
+        {
+            id: 3,
+            name: "DONE",
+            items: []
+        }
+    ]
 const DragDropElement=()=>{
-    const [boardsData, setBoardsData] = createStore({
+    /*const [boardsData, setBoardsData] = createStore({
         boardItems: [
                 {
                     id: 1,
                     name: "TODO",
                     items: [
-                        { id: 41, name: "item41" },
-                        { id: 42, name: "item42" },
-                        { id: 43, name: "item43" },
-                        { id: 44, name: "item44" },
-                        { id: 45, name: "item45" },
-                        { id: 46, name: "item46" },
-                        { id: 47, name: "item47" },
-                        { id: 48, name: "item48" },
-                        { id: 49, name: "item49" },
-                        { id: 50, name: "item50" },
-                        { id: 51, name: "item51" }
+                        { id: 41, columnName: "item41" },
+                        { id: 42, columnName: "item42" },
+                        { id: 43, columnName: "item43" },
+                        { id: 44, columnName: "item44" },
+                        { id: 45, columnName: "item45" },
+                        { id: 46, columnName: "item46" },
+                        { id: 47, columnName: "item47" },
+                        { id: 48, columnName: "item48" },
+                        { id: 49, columnName: "item49" },
+                        { id: 50, columnName: "item50" },
+                        { id: 51, columnName: "item51" }
                     ]//,
                     //onItemsDrop: {}
 
@@ -59,7 +97,7 @@ const DragDropElement=()=>{
                 }
             ]
 
-    });
+    });*/
     const [boards,setBoards] =useState(boardsData);
 
     /*function moveItem(item: Column,from:Board, to: Board) {
@@ -68,7 +106,11 @@ const DragDropElement=()=>{
             setBoards({...boards,columnItems: addItem()});
         }
     }*/
-    function moveItem(item: Column,targetID:number/*from:Board, to: Board*/) {
+
+    /*function deleteItem(deleteItem: Column,parentBoard:number) {
+
+    }*/
+    function moveItem(dragItem: Column,targetID:number/*from:Board, to: Board*/) {
         debugger;
         //let boards.columnItems
         let items: any;
@@ -83,15 +125,79 @@ const DragDropElement=()=>{
         });
 
         setBoards(boardsData);*/
-        boards.boardItems.map(brd => {
-            if(brd.id == targetID){
-                if(!brd.items.map(i => i.id).includes(item.id)){
-                    setBoards(...brd,{
-                        items: brd.items.concat(item)
-                    });
+        let boardsList = boards;
+        let myDragItem = null;
+        /*for(var b = 0; b < boardsList.length; b++) {
+            //if(boardsList[b].id == targetID){
+            myDragItem = boardsList[b].items.find(X => X.id === dragItem.id);
+                //if(boardsList[b].items.map(i => i.id).includes(dragItemId)){
+                if(dragItem){
+                    const newList = boardsList[b].items.filter((X) => X.id !== dragItem.id);
+                    boardsList[b].items = newList;
+                    break;
+                }
+                //return i;
+            //}
+        }
+
+        if(dragItem) {
+            for (var b = 0; b < boardsList.length; b++) {
+                if (boardsList[b].id == targetID) {
+                    if (!boardsList[b].items.map(i => i.id).includes(dragItem.id)) {
+                        const newList = boardsList[b].items.concat(dragItem!);
+                        boardsList[b].items = newList;
+                        break;
+                    }
+                    //return i;
                 }
             }
+        }*/
+
+
+       /* boards.map(brd => {
+            myDragItem = brd.items.find(X => X.id === dragItem.id);
+            if(myDragItem) {
+                let newList:Column[] = brd.items.filter((X) => X.id !== dragItem.id);
+                    setBoards((brd) => (return {...brd ,items: newList}));
+
+            }
+
+        });*/
+        /*boards.map(brd => {
+            myDragItem = brd.items.find(X => X.id === dragItem.id);
+            if(brd.id == targetID){
+                if(!brd.items.map(i => i.id).includes(item.id)){
+                    setBoards({...brd,{
+                        items: items.items.concat(item)
+                    }});
+                }
+            }
+        });*/
+        /*boards.boardItems.map(brd => {
+            if(brd.id == targetID){
+                if(!brd.items.map(i => i.id).includes(item.id)){
+                    setBoards({...brd,{
+                        items: items.items.concat(item)
+                    }});
+                }
+            }
+        });*/
+        //setBoards(boardsList);
+        /*const updatedBoards = boards.map(brd => {
+            if (brd.id === targetID) {
+                if(!brd.items.map(i => i.id).includes(item.id)) {
+                    return {
+                        ...brd,
+                        items: [...brd.items, item],
+                    };
+                }else {
+                    return brd;
+                }
+            } else {
+                return brd;
+            }
         });
+        setBoards(updatedBoards);*/
 
 
         /*boards.boardItems.map(c => {
@@ -163,7 +269,7 @@ const DragDropElement=()=>{
             <hr />
             <DndProvider backend={HTML5Backend}>
                 {/*<BoardContainer board={boardsData} onColumnItemsChange={setBoards} onColumnItemsDrop={moveItem} />*/}
-                <BoardContainer boards={boardsData.boardItems} onColumnItemsChange={columnItemsChange} onColumnItemsDrop={moveItem} />
+                <BoardContainer boards={boards} onColumnItemsChange={columnItemsChange} onColumnItemsDrop={moveItem} />
             </DndProvider>
         </main>
     );
