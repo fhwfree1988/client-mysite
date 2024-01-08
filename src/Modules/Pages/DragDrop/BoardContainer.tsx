@@ -9,10 +9,12 @@ import {Board} from "./Board";
 
 interface BoardContainerProps {
     boards: {
-        id: number;
-        name: string;
-        items: any[];
-        //onItemsDelete: (item: Column) => void;
+        board:{
+            id: number;
+            name: string;
+            items: any[];
+            //onItemsDelete: (item: Column) => void;
+        }
     }[];
     onColumnItemsChange: (
         key: string,
@@ -69,8 +71,8 @@ export function BoardContainer(props: BoardContainerProps) {
 
     return (
             <div className={s.columnContent} >
-                {props.boards.map((brd:Board) =>
-                    <Board  board={brd} onColumnItemsChange={props.onColumnItemsChange} onColumnItemsDrop={props.onColumnItemsDrop}  />
+                {props.boards.map((brd) =>
+                    <Board  board={brd.board} onColumnItemsChange={props.onColumnItemsChange} onColumnItemsDrop={props.onColumnItemsDrop} />
                 )}
             </div>
     );

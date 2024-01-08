@@ -34,33 +34,40 @@ interface  BordsContainer{
 const boardsData/*:BordsContainer[]*/=
     [
         {
-            id: 1,
-            name: "TODO",
-            items: [
-                { id: 41, columnName: "item41" ,parentBoard:{id:1}},
-                { id: 42, columnName: "item42" ,parentBoard:{id:1}},
-                { id: 43, columnName: "item43" ,parentBoard:{id:1}},
-                { id: 44, columnName: "item44" ,parentBoard:{id:1}},
-                { id: 45, columnName: "item45" ,parentBoard:{id:1}},
-                { id: 46, columnName: "item46" ,parentBoard:{id:1}},
-                { id: 47, columnName: "item47" ,parentBoard:{id:1}},
-                { id: 48, columnName: "item48" ,parentBoard:{id:1}},
-                { id: 49, columnName: "item49" ,parentBoard:{id:1}},
-                { id: 50, columnName: "item50" ,parentBoard:{id:1}},
-                { id: 51, columnName: "item51" ,parentBoard:{id:1}}
-            ]//,
+            board: {
+                id: 1,
+                name: "TODO",
+                items: [
+                    { id: 41, columnName: "item41" },
+                    { id: 42, columnName: "item42" },
+                    { id: 43, columnName: "item43" },
+                    { id: 44, columnName: "item44" },
+                    { id: 45, columnName: "item45" },
+                    { id: 46, columnName: "item46" },
+                    { id: 47, columnName: "item47" },
+                    { id: 48, columnName: "item48" },
+                    { id: 49, columnName: "item49" },
+                    { id: 50, columnName: "item50" },
+                    { id: 51, columnName: "item51" }
+                ]
+            }
+            //,
             //onDeleteItem: {}
 
         },
         {
-            id: 2,
-            name: "DOING",
-            items: []
+            board: {
+                id: 2,
+                name: "DOING",
+                items: []
+            }
         },
         {
-            id: 3,
-            name: "DONE",
-            items: []
+            board: {
+                id: 3,
+                name: "DONE",
+                items: []
+            }
         }
     ]
 const DragDropElement=()=>{
@@ -98,7 +105,7 @@ const DragDropElement=()=>{
             ]
 
     });*/
-    const [boards,setBoards] =useState(boardsData);
+    //const [boards,setBoards] =useState(boardsData);
 
     /*function moveItem(item: Column,from:Board, to: Board) {
         if(!boards.columnItems.map(c => c.id).includes(to.id)) {
@@ -125,7 +132,7 @@ const DragDropElement=()=>{
         });
 
         setBoards(boardsData);*/
-        let boardsList = boards;
+       // let boardsList = boards;
         let myDragItem = null;
         /*for(var b = 0; b < boardsList.length; b++) {
             //if(boardsList[b].id == targetID){
@@ -216,10 +223,10 @@ const DragDropElement=()=>{
     }
     function addItem (newColumn:Column,  to: Board,) {
        // boards.columnItems.map((c: Board) => addItem(item, c))
-        if(!to.items.map(i => i.id).includes(newColumn.id))
+        if(!to.board.items.map(i => i.id).includes(newColumn.id))
             return {
                 ...to,
-                items: to.items.concat(newColumn)
+                items: to.board.items.concat(newColumn)
             }
         return to;
         /*return {
@@ -269,7 +276,7 @@ const DragDropElement=()=>{
             <hr />
             <DndProvider backend={HTML5Backend}>
                 {/*<BoardContainer board={boardsData} onColumnItemsChange={setBoards} onColumnItemsDrop={moveItem} />*/}
-                <BoardContainer boards={boards} onColumnItemsChange={columnItemsChange} onColumnItemsDrop={moveItem} />
+                <BoardContainer boards={boardsData} onColumnItemsChange={columnItemsChange} onColumnItemsDrop={moveItem} />
             </DndProvider>
         </main>
     );

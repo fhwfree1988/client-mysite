@@ -5,28 +5,30 @@ import {ItemTypes} from "./DragDropElement";
 import {Board} from "./Board";
 
 
-interface ColumnProps {
-    id: number;
-    columnName: string;
-    parentBoard: Board;
+export interface Column /*ColumnProps*/ {
+    id?: number;
+    columnName?: string;
+   // parentBoard: Board;
    // items: Array<{ name: string }>;
    // items: Array<Column>;
-    onItemsChange: (e:any) => void;
+    onItemsChange?: (e:any) => void;
+    onRemoveFromParent?: (item: Column) => void;
 }
-export interface Column {
+/*export interface Column {
     id: number;
     columnName: string;
     parentBoard: Board;
     //onItemsClick: (e:any) => void;
-}
 
-export function Column(props: ColumnProps) {
+}*/
+
+export function Column(props: Column/*ColumnProps*/) {
     let id = props.id;
     let columnName = props.columnName;
-    let parentBoard = props.parentBoard;
+    //let parentBoard = props.parentBoard;
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.ITEM,
-        item: { id,columnName,parentBoard },
+        item: props/*{ id,columnName,parentBoard }*/,
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
         })
