@@ -1,9 +1,9 @@
 import {DndProvider, DropTargetMonitor, useDrop,useDrag} from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import {Column} from "./Column";
+import Column, {ColumnI} from "./Column";
 import s from './styles.module.css';
 import {ItemTypes} from "./DragDropElement";
-import {useCallback, useEffect, useMemo, useReducer, useState} from "react";
+import {useCallback, useEffect, useMemo, useReducer, useRef, useState} from "react";
 
 export interface Board {
    /* id: number;
@@ -12,7 +12,7 @@ export interface Board {
     board: {
         id: number;
         name: string;
-        items: Column[];
+        items: ColumnI[];
         //onItemsDelete: (item: Column) => void;
     };
     //onItemsDelete: (item: Column) => void;
@@ -23,7 +23,7 @@ export interface Board {
         subValue?: any[]
     ) => void;
     onColumnItemsDrop: (
-        item: Column,
+        item: ColumnI,
         target:number,
         //to: Board
     ) => void;
@@ -56,8 +56,11 @@ const initialState = {
     items:[]
 
 };
-
+export interface ColumDelete {
+    deleteI(): void;
+}
 export function Board(props: Board/*BoardProps*/) {
+    const childRef = useRef<ColumDelete>(null);
    /* const reducer = (state: Column[], action: { type:string; value:Column; }) => {
         if (action.type === "reset") {
             return initialState;
@@ -70,24 +73,26 @@ export function Board(props: Board/*BoardProps*/) {
     };
     const [state, dispatch] = useReducer(reducer,initialState);*/
 
-    const [boardItems,setBoardItems] =useState<Column[]>/*(()=>{return props.board.items})*/(props.board.items);
+    const [boardItems,setBoardItems] =useState<ColumnI[]>/*(()=>{return props.board.items})*/(props.board.items);
+    const calculation = useMemo(() => deleteItem(boardItems), [boardItems]);
     /*useEffect(()=>{
         console.log("useEffect ---> content is changed ");
         setBoardItems(boardItems);
     },[boardItems])*/
     const [collectedProps, drop] = useDrop(() => ({
         accept: ItemTypes.ITEM,
-        drop: (dragItem: Column) => addItem(dragItem,props.board.id),
+        drop: (dragItem: ColumnI) => addItem(dragItem,props.board.id),
         collect: monitor => ({
             isOver: !!monitor.isOver(),
         }),
     }));
 
-    const deleteItem = useCallback((item: Column) => {
+    /*const deleteItem = useCallback((item: Column) => {
         debugger;
         let newList:Column[] = boardItems.filter(X => X.id !== item.id);
         setBoardItems(newList);
-    }, [boardItems]);
+    }, [boardItems]);*/
+
     /*const [{isDragging}, drag] = useDrag(() => ({
         accept: ItemTypes.ITEM,
         collect: monitor => ({
@@ -107,12 +112,27 @@ export function Board(props: Board/*BoardProps*/) {
     function handleDndColumnsSorted(e: CustomEvent) {
         props.onColumnItemsChange("columnItems", e.detail.items);
     }
-   /* function deleteItem(item: Column) {
+   function deleteItem(item: ColumnI) {
+        debugger;
+        let newList:ColumnI[] = boardItems.filter(X => X.id !== item.id);
+        setBoardItems(newList);
+    }
+    function deleteItem(item: ColumnI) {
+        debugger;
+        let newList:ColumnI[] = boardItems.filter(X => X.id !== item.id);
+        setBoardItems(newList);
+    }
+    /*const deleteItem = (item: ColumnI) => {
+        debugger;
+        let newList:ColumnI[] = boardItems.filter(X => X.id !== item.id);
+        setBoardItems(newList);
+    }*/
+    /*function deleteItem(item: Column) {
         debugger;
         let newList:Column[] = boardItems.filter(X => X.id !== item.id);
         setBoardItems(newList);
     }*/
-    function addItem(dragItem: Column,targetID:number/*from:Board, to: Board*/) {
+    function addItem(dragItem: ColumnI,targetID:number/*from:Board, to: Board*/) {
         debugger;
         //let boards.columnItems
         //let items: any;
@@ -168,8 +188,9 @@ export function Board(props: Board/*BoardProps*/) {
 
         //dragItem.parentBoard.onItemsDelete(dragItem);
         dragItem.onRemoveFromParent!(dragItem);
+        //childRef.current?.deleteI();
         //dispatch({ type: "reset",value:dragItem });
-        let newList:Column[] = boardItems;
+        let newList:ColumnI[] = boardItems;
         newList.push(dragItem);
         setBoardItems(newList);
         /*boards.map(brd => {
@@ -233,6 +254,7 @@ export function Board(props: Board/*BoardProps*/) {
         );
     }
 
+
     return (
         <div className={s.columnContent} ref={drop}>
             {/*{props.board.items.map((column) =>*/}
@@ -246,9 +268,10 @@ export function Board(props: Board/*BoardProps*/) {
                                     id={column.id}
                                     columnName={column.columnName}
                                     //parentBoard={props.board}
-                                   // items={column.items}
-                                    onItemsChange={(e) => handleDndCardsSorted(column.id! , e)}
-                                    onRemoveFromParent={(dragedItem:Column)=> deleteItem(dragedItem)}
+                                    //items={column.items}
+                                    //onItemsChange={(e) => handleDndCardsSorted(column.id! , e)}
+                                    onRemoveFromParent={(dragColumn:ColumnI) => deleteItem(dragColumn)}
+                                    ref={childRef}
                                 />
                             )}
                         </div>

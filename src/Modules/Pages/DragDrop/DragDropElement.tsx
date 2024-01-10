@@ -4,7 +4,7 @@ import s from "./styles.module.css";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {useState} from "react";
-import {Column} from "./Column";
+import {ColumnI} from "./Column";
 import {BoardContainer} from "./BoardContainer";
 import MenuI from "../../Components/Pages/MenuI";
 
@@ -29,7 +29,7 @@ export const ItemTypes = {
 interface  BordsContainer{
     id: number;
     name: string;
-    items: Column[];
+    items: ColumnI[];
 }
 const boardsData/*:BordsContainer[]*/=
     [
@@ -117,7 +117,7 @@ const DragDropElement=()=>{
     /*function deleteItem(deleteItem: Column,parentBoard:number) {
 
     }*/
-    function moveItem(dragItem: Column,targetID:number/*from:Board, to: Board*/) {
+    function moveItem(dragItem: ColumnI,targetID:number/*from:Board, to: Board*/) {
         debugger;
         //let boards.columnItems
         let items: any;
@@ -221,7 +221,7 @@ const DragDropElement=()=>{
           //  setBoards({...boards,columnItems: addItem()});
         //}
     }
-    function addItem (newColumn:Column,  to: Board,) {
+    function addItem (newColumn:ColumnI,  to: Board,) {
        // boards.columnItems.map((c: Board) => addItem(item, c))
         if(!to.board.items.map(i => i.id).includes(newColumn.id))
             return {

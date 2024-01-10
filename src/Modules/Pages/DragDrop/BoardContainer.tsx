@@ -1,6 +1,6 @@
 import {DndProvider, DropTargetMonitor, useDrop,useDrag} from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import {Column} from "./Column";
+import {ColumnI} from "./Column";
 import s from './styles.module.css';
 import {ItemTypes} from "./DragDropElement";
 import {useState} from "react";
@@ -23,7 +23,7 @@ interface BoardContainerProps {
         subValue?: any[]
     ) => void;
     onColumnItemsDrop: (
-        item: Column,
+        item: ColumnI,
         target:number,
         //to: Board
     ) => void;
