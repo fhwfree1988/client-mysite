@@ -74,7 +74,7 @@ export function Board(props: Board/*BoardProps*/) {
     const [state, dispatch] = useReducer(reducer,initialState);*/
 
     const [boardItems,setBoardItems] =useState<ColumnI[]>/*(()=>{return props.board.items})*/(props.board.items);
-    const calculation = useMemo(() => deleteItem(boardItems), [boardItems]);
+    //const calculation = useMemo(() => deleteItem(boardItems), [boardItems]);
     /*useEffect(()=>{
         console.log("useEffect ---> content is changed ");
         setBoardItems(boardItems);
@@ -111,11 +111,6 @@ export function Board(props: Board/*BoardProps*/) {
 
     function handleDndColumnsSorted(e: CustomEvent) {
         props.onColumnItemsChange("columnItems", e.detail.items);
-    }
-   function deleteItem(item: ColumnI) {
-        debugger;
-        let newList:ColumnI[] = boardItems.filter(X => X.id !== item.id);
-        setBoardItems(newList);
     }
     function deleteItem(item: ColumnI) {
         debugger;
